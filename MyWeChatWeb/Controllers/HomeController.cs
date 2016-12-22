@@ -1,8 +1,14 @@
-﻿using Senparc.Weixin.MP.Containers;
+﻿using MyWeChatService;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.MvcExtension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +21,10 @@ namespace MyWeChatWeb.Controllers
         public static readonly string EncodingAESKey = "0ArtEUtQDYSVTudCqg1mSt61pqdJPHOG4csPWYZUTCB ";//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = "wx739b4a998d710f0b";//与微信公众账号后台的AppId设置保持一致，区分大小写。
         public static readonly string AppSecret = "96c92d012934a873820d97084c18d93d";
+
+        public string timestamp = string.Empty;
+        public string nonceStr = string.Empty;
+        public string signature = string.Empty;
         // GET: Home
         public ActionResult Index()
         {
@@ -22,19 +32,25 @@ namespace MyWeChatWeb.Controllers
         }
         public ActionResult Content(PostModel postModel, string echostr)
         {
-            string string1 = "jsapi_ticket=kgt8ON7yVITDhtdwci0qedbtX1Uj0AuL9VIXOfX4Q_-LS8dfy3tafegzCxKVHYO6iBuWVzkhGYR_qtnJH4YQvA&noncestr=Wm3WZYTPz0wzccnW&timestamp=1414587457&url=http://1p623v6690.iok.la/Home/Content";
-            byte[] cleanBytes = Encoding.Default.GetBytes(string1);
-            byte[] hashedBytes = System.Security.Cryptography.SHA1.Create().ComputeHash(cleanBytes);
-            ViewBag.signature = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-
-
-
-            //var accessToken = AccessTokenContainer.TryGetAccessToken(AppId, AppSecret);
-            //var jsticket = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
+            string ticket = string.Empty;
+            timestamp = JSSDKHelper.GetTimestamp();
+            nonceStr = JSSDKHelper.GetNoncestr();
+            JSSDKHelper jssdkhelper = new JSSDKHelper();
+            ticket = JsApiTicketContainer.TryGetJsApiTicket(AppId, AppSecret);
+            signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, Request.Url.AbsoluteUri.ToString());
+            ViewBag.signature = signature;
             ViewBag.appid = AppId;
-            ViewBag.timestamp = 1414587457;
-            ViewBag.noncestr = "Wm3WZYTPz0wzccnW";
+            ViewBag.timestamp = timestamp;
+            ViewBag.noncestr = nonceStr;
             return View();
+        }
+        [HttpPost]
+        public ActionResult Post(string scanQRCode)
+        {
+            string pwd = "jwysoft20122012,";
+            WebReference.Service1 method = new WebReference.Service1();
+            string result = method.QueryContract(pwd, scanQRCode);
+            return Json(result);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Senparc.Weixin.MP.Entities;
+﻿using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -182,12 +184,16 @@ namespace MyWeChatService
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
         {
+            string AppId = "wx739b4a998d710f0b";//与微信公众账号后台的AppId设置保持一致，区分大小写。
+            string AppSecret = "96c92d012934a873820d97084c18d93d";
             string pwd = "jwysoft20122012,";
             string msg = requestMessage.ScanCodeInfo.ScanResult;
             WebReference.Service1 method = new WebReference.Service1();
             string result = method.QueryContract(pwd, msg);
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = result;
+            var accessToken = AccessTokenContainer.TryGetAccessToken(AppId, AppSecret);
+            string UserName = UserApi.Info(accessToken, responseMessage.ToUserName).nickname;
+            responseMessage.Content = "您好" + UserName + "\r\n查询结果是：\r\n" + result;
             return responseMessage;
         }
     }
