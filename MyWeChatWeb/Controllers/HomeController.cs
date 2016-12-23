@@ -49,7 +49,7 @@ namespace MyWeChatWeb.Controllers
         {
             string pwd = "jwysoft20122012,";
             WebReference.Service1 method = new WebReference.Service1();
-            string result = method.QueryContract(pwd, scanQRCode);
+            string result = "\r\n查询结果：" + method.QueryContract(pwd, scanQRCode);
             return Json(result);
         }
     }

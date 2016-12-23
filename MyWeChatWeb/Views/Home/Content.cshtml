@@ -8,11 +8,11 @@
 <body style="text-align:center">
     <div>
         <h2>二维码离线扫描程序</h2>
-        <input type="button" value="扫防护码" id="scancodeBtnOne" onclick="aa()" />
+        <input type="button" value="扫防护码" id="scancodeBtnOne" onclick="JumpToScan()" />
         <input type="button" value="扫防化码" id="scancodeBtnTwo" />
     </div>
     <div>
-        <table width="100%">
+        <table width="100%" id="myTable">
             <thead>
                 <tr>
                     <td>二维码值</td>
@@ -23,6 +23,7 @@
             </thead>
             <tbody id="AddContent"></tbody>
         </table>
+        <input type="button" value="清空所有数据" id="scancodeBtnThree" onclick="batchdel()" />
     </div>
     <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
@@ -32,7 +33,7 @@
             var str=window.localStorage.getItem("reValue").split('/');
             //var jsonObj=JSON.parse(json);
             for (var i = 0; i < str.length-1;i+=2) {
-                $("#AddContent").append("<tr><td>"+str[i]+"</td><td>"+str[i+1]+"</td><td><input type='button' value='查询' onclick='bb(\""+str[i]+"\")' /></td><td><input type='button' value='删除' /></td></tr>")
+                $("#AddContent").append("<tr><td>"+str[i]+"</td><td>"+str[i+1]+"</td><td><input type='button' value='查询' onclick='Query(\""+str[i]+"\")' /></td><td><input type='button' value='删除' onclick='del(\""+str[i]+"\",this)'/></td></tr>")
             }
         });
         wx.config({
@@ -45,7 +46,7 @@
         });
     </script>
     <script type="text/javascript">
-        function aa(){
+        function JumpToScan(){
             wx.scanQRCode({
                 needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                 scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
@@ -66,32 +67,61 @@
                     + seperator2 + date.getSeconds();
                     var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
                     var data="";
-                    if (localStorage.getItem("reValue")==null) {
+                    if (localStorage.getItem("reValue")==""||localStorage.getItem("reValue")==null||localStorage.getItem("reValue")==undefined) {
                         data=result+"/"+currentdate+"/";
                     }else {
                         data=localStorage.getItem("reValue");
-                        data+=result+"/"+currentdate+"/";
+                        var arrx=data.split('/');
+                        for (var j = 0; j <arrx.length-1; j+=2) {
+                            if (arrx[j]!=result )
+                            {
+                                data+=result+"/"+currentdate+"/";
+                            }
+                        }
                     }
                     window.localStorage.setItem("reValue",data);
-                    $("#AddContent").append("<tr><td>"+result+"</td><td>"+currentdate+"</td><td><input type='button' value='查询' onclick='bb(\""+result+"\")' /></td><td><input type='button' value='删除' onclick='bb("+result+")' /></td></tr>")
+                    $("#AddContent").append("<tr><td>"+result+"</td><td>"+currentdate+"</td><td><input type='button' value='查询' onclick='Query(\""+result+"\")' /></td><td><input type='button' value='删除' onclick='del(\""+result+"\")' /></td></tr>")
                 }
             });
         }
-        function bb(ms){
+        function Query(ms){
             var data={scanQRCode:ms};
             $.ajax({
                 url:"/Home/Post",
                 type:"POST",
                 data:data,
                 success:function(msg){
-                    alert(msg);
+                    alert(@Session["UserName"]+msg);
                 },
                 error:function(){
                     alert("执行失败");
                 }
             });
         }
+        function del(msg,e){
+            if(confirm("确定要清空数据吗？")){
+                var str=window.localStorage.getItem("reValue").split('/');
+                var de="";
+                for (var ii = 0; ii < str.length-1;ii+=2) {
+                    if (str[ii]==msg) {
+                        de+="";
+                    }else{
+                        de+=str[ii]+"/"+str[ii+1]+"/";
+                    }
+                }
+                var n=e.parentNode.parentNode.rowIndex;
+                document.getElementById('myTable').deleteRow(n);
+                localStorage.setItem("reValue",de);
+                //window.location.reload();
+            }
+        }
+        function batchdel(){
+            var trs = document.getElementsByTagName("tr");
+            for(var i = trs.length - 1; i > 0; i--) {
+                document.getElementById("table").deleteRow(i);
+            }
+            window.localStorage.setItem("reValue","");
+        }
     </script>
-
 </body>
 </html>
