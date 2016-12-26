@@ -14,10 +14,7 @@ namespace MyWeChatService
     {
         private string GetWelcomeInfo()
         {
-            string WelcomeStr = @"欢迎关注王凯的微信公众平台测试账号！
-                                在此账号下，你可以发送文字消息、图片、
-                                语音、当前位置等信息查看不用格式的回复。
-                                您也可以点击下方的菜单栏按钮使用微信扫一扫";
+            string WelcomeStr = "欢迎关注王凯的微信公众平台测试账号！\r\n在此账号下，你可以发送文字消息、图片、语音、当前位置等信息查看不用格式的回复。您也可以点击下方的菜单栏按钮使用微信扫一扫";
             return WelcomeStr;
         }
         /// <summary>
@@ -195,6 +192,12 @@ namespace MyWeChatService
             var accessToken = AccessTokenContainer.TryGetAccessToken(AppId, AppSecret);
             string UserName = UserApi.Info(accessToken, responseMessage.ToUserName).nickname;
             responseMessage.Content = "您好" + UserName + "\r\n查询结果是：\r\n" + result;
+            return responseMessage;
+        }
+        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        {
+            var locationService = new LocaltionService();
+            var responseMessage = locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
             return responseMessage;
         }
     }

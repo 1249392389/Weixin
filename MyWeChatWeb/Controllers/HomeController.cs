@@ -1,6 +1,7 @@
 ﻿using MyWeChatService;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
@@ -28,10 +29,28 @@ namespace MyWeChatWeb.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            var state = "WangKai-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
+            Session["State"] = state;//储存随机数到Session
+            //此页面引导用户点击授权
+            ViewData["UrlUserInfo"] =
+                OAuthApi.GetAuthorizeUrl(AppId,
+                "http://1p623v6690.iok.la/Home/UserInfoCallback",
+                state, OAuthScope.snsapi_userinfo);
             return View();
         }
-        public ActionResult Content(PostModel postModel, string echostr)
+        public ActionResult UserInfoCallback(string code, string state, string returnUrl)
         {
+            if (string.IsNullOrEmpty(code))
+            {
+                return Content("您拒绝了授权！");
+            }
+
+            if (state != Session["State"] as string)
+            {
+                return Content("验证失败！请从正规途径进入！");
+            }
+            OAuthAccessTokenResult result = OAuthApi.GetAccessToken(AppId, AppSecret, code);
+            OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);  
             string ticket = string.Empty;
             timestamp = JSSDKHelper.GetTimestamp();
             nonceStr = JSSDKHelper.GetNoncestr();
@@ -42,14 +61,14 @@ namespace MyWeChatWeb.Controllers
             ViewBag.appid = AppId;
             ViewBag.timestamp = timestamp;
             ViewBag.noncestr = nonceStr;
-            return View();
+            return View(userInfo);
         }
         [HttpPost]
         public ActionResult Post(string scanQRCode)
         {
             string pwd = "jwysoft20122012,";
             WebReference.Service1 method = new WebReference.Service1();
-            string result = "\r\n查询结果：" + method.QueryContract(pwd, scanQRCode);
+            string result = "\r\n查询结果：\r\n" + method.QueryContract(pwd, scanQRCode);
             return Json(result);
         }
     }

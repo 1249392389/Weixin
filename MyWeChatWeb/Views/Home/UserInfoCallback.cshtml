@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo
+<!DOCTYPE html>
 
 <html lang="zh-CN">
 <head>
@@ -104,7 +105,7 @@
                     type:"POST",
                     data:data,
                     success:function(msg){
-                        alert(msg);
+                        alert("您好："+"@Model.nickname"+msg);
                     },
                     error:function(){
                         alert("执行失败");

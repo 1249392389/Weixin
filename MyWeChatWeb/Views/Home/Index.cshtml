@@ -1,28 +1,22 @@
-﻿
-@{
-    Layout = null;
-}
+﻿<!DOCTYPE html>
 
-<!DOCTYPE html>
-
-<html>
+<html lang="zh-CN">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="~/Css/bootstrap.min.css" rel="stylesheet" />
     <title>江西人防离线扫码</title>
 </head>
-<body style="text-align:center">
-    <div>
-        <h2>离线扫码说明</h2>
+<body class="text-center">
+    <div class="container">
+        <h3>离线扫码说明</h3>
         <hr />
-        <div>
-            如果扫描合同、清单、设备上的二维码时，手机没有无线信号，则进入离线扫码程序进行扫码。如果是防护设备，请点击
-            【扫防护码】按钮。如果是防化设备，请点击【扫防化码】按钮。扫码完毕后，到有手机信号的地方，点击【查询】按钮，
-            得到系统返回信息。扫码信息不会丢失，及时关闭了程序界面也不会丢失。已经查询过的二维码信息，
-            可以点击【删除】按钮，清楚信息。
-        </div>
-        <div>
-            <h3>@Html.ActionLink("点击进入离线扫码", "Content", "Home")</h3>
-        </div>
+        <p>1、如果扫描合同、清单、设备上的二维码时，手机没有无线信号，则进入离线扫码程序进行扫码。</p>
+        <p>2、如果是防护设备，请点击【扫防护码】按钮。如果是防化设备，请点击【扫防化码】按钮。</p>
+        <p>3、扫码完毕后，到有手机信号的地方，点击【查询】按钮，得到系统返回信息。</p>
+        <p>4、扫码信息不会丢失，及时关闭了程序界面也不会丢失。已经查询过的二维码信息，可以点击【删除】按钮，清除信息。</p>
+        <p style="color:red">重要提示：请在进入人防工程前，先点击下面的按钮，进入离线扫码程序。</p>
+        <p><h3><a href="@ViewData["UrlUserInfo"]" class="btn btn-info">点击进入离线扫码</a></h3></p>
     </div>
 </body>
 </html>

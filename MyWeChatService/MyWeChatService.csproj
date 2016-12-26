@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LocaltionService.cs" />
     <Compile Include="MyMessageContext.cs" />
     <Compile Include="MyMessageHandler.cs" />
     <Compile Include="MyMessageHandler_Event.cs" />
