@@ -1,0 +1,139 @@
+﻿@model Senparc.Weixin.QY.Helpers.JsSdkUiPackage
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>二维码离线扫描程序</title>
+    <link href="~/Css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+    <script src="~/Scripts/dateTimeFormat.js"></script>
+    <script type="text/javascript">
+        wx.config({
+            debug: false,//开启调试模式，调试所有api的返回值会在客户端alert出来
+            appId: '@Model.AppId',//公众号的唯一标识
+            timestamp: @Model.Timestamp,//生成签名时的时间戳
+            nonceStr: '@Model.NonceStr',//生成签名时的随机字符串
+            signature: '@Model.Signature',//签名
+            jsApiList: ['scanQRCode']//需要使用的JS接口列表
+        });
+        wx.error(function (res) {
+            console.log(res);
+            alert('验证失败');
+        });
+    </script>
+    @*<style>
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>*@
+    <style>
+        th {
+            height: 35px;
+        }
+
+        td, th {
+            padding: 2px;
+        }
+    </style>
+</head>
+<body class="text-center">
+    <div class="row">
+        <h3>二维码离线扫描程序</h3>
+        <hr />
+        <input type="button" value="扫防护码" id="scancodeBtnOne" onclick="JumpToScan()" class="btn btn-info" />
+        <input type="button" value="扫防化码" id="scancodeBtnTwo" class="btn btn-info" onclick="JumpToScan()" />
+    </div>
+    <div class="row">
+        <table class="table table-striped" style="table-layout: fixed;word-wrap:break-word;" id="myTable">
+            <thead>
+                <tr>
+                    <th>二维码值</th>
+                    <th>扫码时间</th>
+                    <th>查询</th>
+                    <th>删除</th>
+                </tr> 
+            </thead>
+            <tbody id="tbodyContent"></tbody>
+        </table>
+        <input type="button" value="清空所有数据" id="scancodeBtnThree" onclick="BatchDel()" class="btn btn-warning" />
+    </div>
+    <script type="text/javascript">
+        //进入页面加载localStroge数据
+        $(function(){
+            var dataCount = localStorage.length;
+            for (var j = 0; j < dataCount; j++) {
+                var barCode = localStorage.key(j);
+                var localTime = localStorage.getItem(barCode);
+                //将数据添加到table中
+                AddbarCodeToTable(barCode, localTime);
+            };
+        });
+        //向table添加一行数据
+        function AddbarCodeToTable(barCode, localTime) {
+            $('#tbodyContent').append('<tr><td style="width:auto;word-wrap:break-word;word-break:break-all;">' + barCode + '</td><td>' + localTime + '</td><td><button class="btn btn-info" onclick="PostToServer(this)">查询</button></td><td><button class="btn btn-danger" onclick="DeleteRow(this)">删除</button></td></tr>');
+        };
+        //清空所有的本地存储数据。
+        function ClearLocalStorage() {
+            localStorage.clear();
+        };
+        //删除本地存储中的一条数据
+        function DeleteFromLocalStorage(barCode) {
+            localStorage.removeItem(barCode);
+        };
+        //从table中删除选中的一行数据
+        function DeleteRow(obj) {
+            var $td = $(obj).parents('tr').children('td');
+            var barCode = $td.eq(0).text();
+            if (confirm("确定要删除" + barCode + "吗?")) {
+                var n=obj.parentNode.parentNode.rowIndex;
+                document.getElementById('myTable').deleteRow(n);
+                //从本地存储中删除本条记录
+                DeleteFromLocalStorage(barCode);
+            }
+        };
+        //向远程服务器提交请求
+        function PostToServer(obj) {
+            var $td = $(obj).parents('tr').children('td');
+            var barCode = $td.eq(0).text();
+            var data={barCode:barCode};
+            $.ajax({
+                url:"/QYOAuth2/QueryCode",
+                type:"POST",
+                data:data,
+                success:function(msg){
+                    alert(msg);
+                },
+                error:function(){
+                    alert("执行失败");
+                }
+            });
+        };
+        //实现扫一扫功能
+        function JumpToScan(){
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var time = new Date();
+                    var localTime = time.pattern("yyyy-MM-dd HH:mm:ss");
+                    AddbarCodeToTable(res.resultStr, localTime);
+                    //将扫描结果存储到本地
+                    AddTolocalStorage(res.resultStr, localTime);
+                }
+            });
+        };
+        function BatchDel(){
+            localStorage.clear();
+            var trs = document.getElementsByTagName("tr");
+            for(var i = trs.length - 1; i > 0; i--) {
+                document.getElementById("myTable").deleteRow(i);
+            }
+        }
+    </script>
+</body>
+</html>

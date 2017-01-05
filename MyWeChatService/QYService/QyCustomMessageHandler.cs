@@ -25,7 +25,11 @@ namespace MyWeChatService.QYService
         public static readonly string CorpSecret = "3mMigRYCXzg_sjvtyVTnJR6XW7b_TklxpPANz-jl6bEosHEuLLczPcJ8lHg5uTZN";
         private string GetWelcomeInfo()
         {
-            string WelcomeStr = "欢迎关注天津市微派科技发展有限公司企业号！\r\n在此应用下，您可以扫描合同或设备上的二维码，验证备案信息、识别假冒设备、识别设备所在工程位置等信息";
+            string WelcomeStr = @"您好，很高兴为您服务。此应用功能为扫描合同或设备上的二维码，验证备案信息、识别假冒设备、识别设备所在工程位置等信息。如需进一步了解如何使用，请按照您想要了解的内容输入对应数字。
+【1】扫防护码
+【2】扫防化码
+【3】查序列号
+如果还不能解决您的问题，请退出此应用返回上一层，点击客服应用联系当前在线客服，客服会给您满意的答复。";
             return WelcomeStr;
         }
         /// <summary>
@@ -56,13 +60,12 @@ namespace MyWeChatService.QYService
                 case "saoFangHu":
                     {
                         result = qf.QueryContractFromFangHu(barCode, requestMessage.FromUserName);
-
                     }
                     break;
             }
-            //var accessToken = AccessTokenContainer.TryGetToken(CorpId, CorpSecret);
-            //string UserName = UserApi.Info(accessToken, responseMessage.ToUserName).nickname;
-            responseMessage.Content = responseMessage.ToUserName + "您好！\r\n查询结果是：\r\n" + result;
+            var accessToken = AccessTokenContainer.TryGetToken(CorpId, CorpSecret);
+            string NickName = MailListApi.GetMember(accessToken, responseMessage.ToUserName).name;
+            responseMessage.Content = NickName + "您好！\r\n查询结果是：\r\n" + result;
             return responseMessage;
         }
         /// <summary>
@@ -83,21 +86,37 @@ namespace MyWeChatService.QYService
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
+            string result = "";
+            var accessToken = AccessTokenContainer.TryGetToken(CorpId, CorpSecret);
+            string NickName = MailListApi.GetMember(accessToken, requestMessage.FromUserName).name;
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            if (requestMessage.Content.ToLower().StartsWith("xlh"))//判断用户输入的内容初始是否含有xlh字段
+            if (requestMessage.Content == null)
             {
-                string barCode = requestMessage.Content.Substring(3);//截取用户输入的文本内容
-                string result = "设备A\r\n信息：AAAAAAAAAAAAAAAAAAAAA";
+            }
+            else if (requestMessage.Content.ToLower().StartsWith("xlh"))//判断用户输入的内容初始是否含有xlh字段
+            {
+                result = "您好！\r\n查询结果是：\r\n设备A\r\n信息：AAAAAAAAAAAAAAAAAAAAA";
+                //string barCode = requestMessage.Content.Substring(3);//截取用户输入的文本内容
                 //QueryFromWebService qf = new QueryFromWebService();//调用WebService获取查询内容
                 //result = qf.QueryContractFromFangHu(barCode, requestMessage.FromUserName);
-                responseMessage.Content = responseMessage.ToUserName + "您好！\r\n查询结果是：\r\n" + result;
+            }
+            else if (requestMessage.Content == "1")
+            {
+                result= NickName + "您好！\r\n【扫防护码】：如过您想要扫描防护设备上的二维码，请点击下方菜单的【扫防护码】按钮获取防护设备的详细信息。";   
+            }
+            else if (requestMessage.Content == "2")
+            {
+                result= NickName + "您好！\r\n【扫防化码】：如过您想要扫描防化设备上的二维码，请点击下方菜单的【扫防化码】按钮获取防化设备的详细信息。";
+            }
+            else if (requestMessage.Content == "3")
+            {
+                result= NickName + "您好！\r\n【查序列号】：如过您想要输入序列号来查询设备或合同的信息，请点击下方菜单的【查序列号】按钮获取相应提示。";
             }
             else
             {
-                var accessToken = AccessTokenContainer.TryGetToken(CorpId, CorpSecret);
-                string NickName = MailListApi.GetMember(accessToken, responseMessage.ToUserName).name;
-                responseMessage.Content = NickName + ",您发送了消息：" + requestMessage.Content + "您的微信号是：" + requestMessage.FromUserName;
+                result= NickName + ",您好！\r\n不能识别您发送的消息，如需帮助请退出此应用返回上一层联系在线客服！"; 
             }
+            responseMessage.Content = result;
             return responseMessage;
         }
         /// <summary>
@@ -141,9 +160,14 @@ namespace MyWeChatService.QYService
         public override Senparc.Weixin.QY.Entities.IResponseMessageBase DefaultResponseMessage(Senparc.Weixin.QY.Entities.IRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "这是一条没有找到合适回复信息的默认消息。";
+            responseMessage.Content = "您的发送消息有误，请查看提示重新发送！。";
             return responseMessage;
         }
+        /// <summary>
+        /// 事件点击（如：菜单点击）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
             IResponseMessageBase reponseMessage = null;
@@ -152,7 +176,7 @@ namespace MyWeChatService.QYService
                 case "QuerySerialNumber":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
-                        strongResponseMessage.Content = "提示：\r\n若想要查询序列号，请输入“XLH”+您想要查询的序列号即可。\r\n如：输入“XLH0000000”即可查询序列号为“0000000”的设备";
+                        strongResponseMessage.Content = "提示：\r\n若想要查询序列号，请输入“XLH”+您想要查询的序列号即可（注：可不区分大小写）。\r\n如：输入“XLH0000000”即可查询序列号为“0000000”的设备";
                         reponseMessage = strongResponseMessage;
                     }
                     break;

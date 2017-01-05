@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>离线扫一扫</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <link href="~/Css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body style="text-align:center">
+    <h3>离线扫码说明</h3>
+    <p style="margin:10px;font-size:1.1em" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、如果扫描合同、清单、设备上的二维码时，手机没有无线信号，则进入离线扫码程序进行扫码。</p>
+    <p style="margin:10px;font-size:1.1em" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、如果是防护设备，请点击【扫防护码】按钮。如果是防化设备，请点击【扫防化码】按钮。</p>
+    <p style="margin:10px;font-size:1.1em" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、因地下没有无线网络信号，所以需要智能移动设备使用相机功能将二维码图片照下来并保存。到有无线网络信号的地方，点击相应的扫码按钮使用扫一扫功能，并且点击右上角的菜单按钮导入之前记录的二维码照片，之后得到系统返回的信息。</p>
+    <p style="margin:10px;font-size:1.1em" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、扫码信息不会丢失，即使关机重启也不会丢失信息。</p>
+    <p style="margin:10px;font-size:1.1em" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5、已经查询过的二维码信息，可以点击【删除】按钮，清除信息。</p>
+    <p style="margin:10px;font-size:1.2em;color:red;" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重要提示：请在进入人防工程前，先确认智能移动设备的相机功能可使用</p>
+    <p><a style="border-style:solid;border-width:1px;border-radius:5px;font-size:1.5em;padding:5px;" href="@ViewData["UrlBase"]">点击进入离线扫码</a></p>
+</body>
+</html>

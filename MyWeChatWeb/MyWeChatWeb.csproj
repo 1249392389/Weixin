@@ -147,6 +147,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dateTimeFormat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -165,6 +166,8 @@
     <Content Include="Views\OAuth\Index.cshtml" />
     <Content Include="Views\OAuth\UserInfoCallback.cshtml" />
     <Content Include="Views\Home\UserInfoCallback.cshtml" />
+    <Content Include="Views\QYOAuth2\Index.cshtml" />
+    <Content Include="Views\QYOAuth2\ShowContent.cshtml" />
     <None Include="Web References\WebReference\Service1.disco" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -174,6 +177,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OAuthController.cs" />
     <Compile Include="Controllers\QYController.cs" />
+    <Compile Include="Controllers\QYOAuth2Controller.cs" />
     <Compile Include="Controllers\WeChatController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
