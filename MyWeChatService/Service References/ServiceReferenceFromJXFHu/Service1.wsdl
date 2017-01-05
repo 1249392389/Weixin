@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckRockey">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckRockeyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckRockeyResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AutoComplete">
+        <s:complexType />
+      </s:element>
+      <s:element name="AutoCompleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AutoCompleteResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoginCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoginCheckResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZJRFCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="equpmentCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZJRFCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZJRFCheckResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZJRFCheckAccordContractNo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="contractBianHao" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZJRFCheckAccordContractNoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZJRFCheckAccordContractNoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Dstring">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="s" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DstringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DstringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Estring">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="s" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EstringResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EstringResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryContract">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contractNo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryContractResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryContractResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryContractLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="contractNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QueryContractLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="QueryContractLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="JXRFCheck">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="equpmentCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="JXRFCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JXRFCheckResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="JXRFCheckLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="equpmentCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="JXRFCheckLogResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="JXRFCheckLogResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckRockeySoapIn">
+    <wsdl:part name="parameters" element="tns:CheckRockey" />
+  </wsdl:message>
+  <wsdl:message name="CheckRockeySoapOut">
+    <wsdl:part name="parameters" element="tns:CheckRockeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="AutoCompleteSoapIn">
+    <wsdl:part name="parameters" element="tns:AutoComplete" />
+  </wsdl:message>
+  <wsdl:message name="AutoCompleteSoapOut">
+    <wsdl:part name="parameters" element="tns:AutoCompleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoginCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:LoginCheck" />
+  </wsdl:message>
+  <wsdl:message name="LoginCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:LoginCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZJRFCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:ZJRFCheck" />
+  </wsdl:message>
+  <wsdl:message name="ZJRFCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:ZJRFCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZJRFCheckAccordContractNoSoapIn">
+    <wsdl:part name="parameters" element="tns:ZJRFCheckAccordContractNo" />
+  </wsdl:message>
+  <wsdl:message name="ZJRFCheckAccordContractNoSoapOut">
+    <wsdl:part name="parameters" element="tns:ZJRFCheckAccordContractNoResponse" />
+  </wsdl:message>
+  <wsdl:message name="DstringSoapIn">
+    <wsdl:part name="parameters" element="tns:Dstring" />
+  </wsdl:message>
+  <wsdl:message name="DstringSoapOut">
+    <wsdl:part name="parameters" element="tns:DstringResponse" />
+  </wsdl:message>
+  <wsdl:message name="EstringSoapIn">
+    <wsdl:part name="parameters" element="tns:Estring" />
+  </wsdl:message>
+  <wsdl:message name="EstringSoapOut">
+    <wsdl:part name="parameters" element="tns:EstringResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryContractSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryContract" />
+  </wsdl:message>
+  <wsdl:message name="QueryContractSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="QueryContractLogSoapIn">
+    <wsdl:part name="parameters" element="tns:QueryContractLog" />
+  </wsdl:message>
+  <wsdl:message name="QueryContractLogSoapOut">
+    <wsdl:part name="parameters" element="tns:QueryContractLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="JXRFCheckSoapIn">
+    <wsdl:part name="parameters" element="tns:JXRFCheck" />
+  </wsdl:message>
+  <wsdl:message name="JXRFCheckSoapOut">
+    <wsdl:part name="parameters" element="tns:JXRFCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="JXRFCheckLogSoapIn">
+    <wsdl:part name="parameters" element="tns:JXRFCheckLog" />
+  </wsdl:message>
+  <wsdl:message name="JXRFCheckLogSoapOut">
+    <wsdl:part name="parameters" element="tns:JXRFCheckLogResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="CheckRockey">
+      <wsdl:input message="tns:CheckRockeySoapIn" />
+      <wsdl:output message="tns:CheckRockeySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AutoComplete">
+      <wsdl:input message="tns:AutoCompleteSoapIn" />
+      <wsdl:output message="tns:AutoCompleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginCheck">
+      <wsdl:input message="tns:LoginCheckSoapIn" />
+      <wsdl:output message="tns:LoginCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheck">
+      <wsdl:input message="tns:ZJRFCheckSoapIn" />
+      <wsdl:output message="tns:ZJRFCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheckAccordContractNo">
+      <wsdl:input message="tns:ZJRFCheckAccordContractNoSoapIn" />
+      <wsdl:output message="tns:ZJRFCheckAccordContractNoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Dstring">
+      <wsdl:input message="tns:DstringSoapIn" />
+      <wsdl:output message="tns:DstringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Estring">
+      <wsdl:input message="tns:EstringSoapIn" />
+      <wsdl:output message="tns:EstringSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryContract">
+      <wsdl:input message="tns:QueryContractSoapIn" />
+      <wsdl:output message="tns:QueryContractSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryContractLog">
+      <wsdl:input message="tns:QueryContractLogSoapIn" />
+      <wsdl:output message="tns:QueryContractLogSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheck">
+      <wsdl:input message="tns:JXRFCheckSoapIn" />
+      <wsdl:output message="tns:JXRFCheckSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheckLog">
+      <wsdl:input message="tns:JXRFCheckLogSoapIn" />
+      <wsdl:output message="tns:JXRFCheckLogSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckRockey">
+      <soap:operation soapAction="http://tempuri.org/CheckRockey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoComplete">
+      <soap:operation soapAction="http://tempuri.org/AutoComplete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginCheck">
+      <soap:operation soapAction="http://tempuri.org/LoginCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheck">
+      <soap:operation soapAction="http://tempuri.org/ZJRFCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheckAccordContractNo">
+      <soap:operation soapAction="http://tempuri.org/ZJRFCheckAccordContractNo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Dstring">
+      <soap:operation soapAction="http://tempuri.org/Dstring" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Estring">
+      <soap:operation soapAction="http://tempuri.org/Estring" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryContract">
+      <soap:operation soapAction="http://tempuri.org/QueryContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryContractLog">
+      <soap:operation soapAction="http://tempuri.org/QueryContractLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheck">
+      <soap:operation soapAction="http://tempuri.org/JXRFCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheckLog">
+      <soap:operation soapAction="http://tempuri.org/JXRFCheckLog" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckRockey">
+      <soap12:operation soapAction="http://tempuri.org/CheckRockey" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AutoComplete">
+      <soap12:operation soapAction="http://tempuri.org/AutoComplete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginCheck">
+      <soap12:operation soapAction="http://tempuri.org/LoginCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheck">
+      <soap12:operation soapAction="http://tempuri.org/ZJRFCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZJRFCheckAccordContractNo">
+      <soap12:operation soapAction="http://tempuri.org/ZJRFCheckAccordContractNo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Dstring">
+      <soap12:operation soapAction="http://tempuri.org/Dstring" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Estring">
+      <soap12:operation soapAction="http://tempuri.org/Estring" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryContract">
+      <soap12:operation soapAction="http://tempuri.org/QueryContract" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryContractLog">
+      <soap12:operation soapAction="http://tempuri.org/QueryContractLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheck">
+      <soap12:operation soapAction="http://tempuri.org/JXRFCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JXRFCheckLog">
+      <soap12:operation soapAction="http://tempuri.org/JXRFCheckLog" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://113.31.17.181:3006/Service1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://113.31.17.181:3006/Service1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

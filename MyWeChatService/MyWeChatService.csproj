@@ -38,6 +38,10 @@
       <HintPath>..\packages\Senparc.Weixin.MP.14.3.104\lib\net45\Senparc.Weixin.MP.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Senparc.Weixin.QY, Version=4.1.12.860, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Senparc.Weixin.QY.4.1.13\lib\net45\Senparc.Weixin.QY.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
@@ -63,6 +67,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Logs\UserLogService.cs" />
+    <Compile Include="QYService\QueryFromWebService.cs" />
+    <Compile Include="QYService\QyCustomMessageContext.cs" />
+    <Compile Include="QYService\QyCustomMessageHandler.cs" />
+    <Compile Include="Service References\ServiceReferenceFromJXFHu\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Web References\WebReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,6 +89,37 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.AutoCompleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.DstringResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.EstringResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.JXRFCheckLogResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.JXRFCheckResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.LoginCheckResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.QueryContractLogResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.QueryContractResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.ZJRFCheckAccordContractNoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\MyWeChatService.ServiceReferenceFromJXFHu.ZJRFCheckResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceFromJXFHu\Service1.wsdl" />
     <None Include="Web References\WebReference\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -100,6 +144,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\WebReference\Service1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyWeChatModel\MyWeChatModel.csproj">
+      <Project>{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}</Project>
+      <Name>MyWeChatModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyWeChatRepository\MyWeChatRepository.csproj">
+      <Project>{B6276863-3361-44E8-94F6-ADC7696E002C}</Project>
+      <Name>MyWeChatRepository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReferenceFromJXFHu\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceFromJXFHu\Service1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceFromJXFHu\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceFromJXFHu\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ServiceReferenceFromJXFHu\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

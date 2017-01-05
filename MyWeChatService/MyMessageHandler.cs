@@ -43,10 +43,22 @@ namespace MyWeChatService
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            var responseMessage = CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您的OpenID为：" + requestMessage.FromUserName +
-                                    "。\r\n发送时间为：" + requestMessage.CreateTime +
-                                    "。\r\n来自开发者的消息：您发送的是文字消息！";
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            if (requestMessage.Content.ToLower().Contains("xlh"))
+            {
+                //QueryFromWebService qf = new QueryFromWebService();
+                string barCode = requestMessage.Content.Substring(3);//截取用户输入的文本内容
+                string result = "AAAA";
+                //result = qf.QueryContractFromFangHu(barCode, requestMessage.FromUserName);
+                responseMessage.Content = requestMessage.FromUserName + "您好！\r\n查询结果是：\r\n" + result;
+            }
+            else
+            {
+                //var responseMessage = CreateResponseMessage<ResponseMessageText>();
+                responseMessage.Content = "您的OpenID为：" + requestMessage.FromUserName +
+                                        "。\r\n发送时间为：" + requestMessage.CreateTime +
+                                        "。\r\n来自开发者的消息：您发送的是文字消息！";
+            }
             return responseMessage;
         }
         /// <summary>

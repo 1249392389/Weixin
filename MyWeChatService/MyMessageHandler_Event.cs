@@ -1,4 +1,6 @@
-﻿using Senparc.Weixin.MP.AdvancedAPIs;
+﻿using MyWeChatModel;
+using MyWeChatService.Logs;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 using System;
@@ -73,15 +75,11 @@ namespace MyWeChatService
                         strongResponseMessage.Content = "来自开发者的消息：您点击了底部菜单按钮！";
                     }
                     break;
-                case "FANGHU":
+                case "QuerySerialNumber":
                     {
-                        string pwd = "jwysoft20122012,";
-                        string msg = requestMessage.ConvertToRequestMessageText().Content;
-                        WebReference.Service1 method = new WebReference.Service1();
-                        string result = method.QueryContract(pwd, msg);
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        strongResponseMessage.Content = "提示：\r\n若想要查询序列号，请输入“XLH”+您想要查询的序列号即可（XLH可不分大小写）。\r\n如：输入“XLH0000000”即可查询序列号为“0000000”的设备";
                         reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = result;
                     }
                     break;
                 case "SubClickRoot_Text":
@@ -192,6 +190,14 @@ namespace MyWeChatService
             var accessToken = AccessTokenContainer.TryGetAccessToken(AppId, AppSecret);
             string UserName = UserApi.Info(accessToken, responseMessage.ToUserName).nickname;
             responseMessage.Content = "您好" + UserName + "\r\n查询结果是：\r\n" + result;
+            //将用户查询日志添加进数据库
+            UserLog model = new UserLog();
+            model.AccountName = requestMessage.FromUserName;
+            model.QueryCode = requestMessage.ScanCodeInfo.ScanResult;
+            model.QueryContent = result;
+            model.CreateDate = requestMessage.CreateTime;
+            model.NickName = UserName;
+            UserLogService.AddUserLog(model);
             return responseMessage;
         }
         public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)

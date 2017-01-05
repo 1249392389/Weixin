@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeChatWeb", "MyWeChatWeb\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeChatService", "MyWeChatService\MyWeChatService.csproj", "{A19D7E84-954E-4AC2-96BA-49B08D14F216}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeChatGlobalUtilities", "MyWeChatGlobalUtilities\MyWeChatGlobalUtilities.csproj", "{6124B6D1-94D4-4A66-97DF-C7693A0B6904}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeChatModel", "MyWeChatModel\MyWeChatModel.csproj", "{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWeChatRepository", "MyWeChatRepository\MyWeChatRepository.csproj", "{B6276863-3361-44E8-94F6-ADC7696E002C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{A19D7E84-954E-4AC2-96BA-49B08D14F216}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A19D7E84-954E-4AC2-96BA-49B08D14F216}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A19D7E84-954E-4AC2-96BA-49B08D14F216}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6124B6D1-94D4-4A66-97DF-C7693A0B6904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6124B6D1-94D4-4A66-97DF-C7693A0B6904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6124B6D1-94D4-4A66-97DF-C7693A0B6904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6124B6D1-94D4-4A66-97DF-C7693A0B6904}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E69EB24F-5AF3-4E71-8332-7F331C9F56BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6276863-3361-44E8-94F6-ADC7696E002C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6276863-3361-44E8-94F6-ADC7696E002C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6276863-3361-44E8-94F6-ADC7696E002C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6276863-3361-44E8-94F6-ADC7696E002C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
